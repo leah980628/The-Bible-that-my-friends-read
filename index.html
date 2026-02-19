@@ -8,27 +8,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
     <style>
-      /* Basic reset to ensure the app container fills the screen */
-      html, body {
+      html, body, #root {
         height: 100%;
         margin: 0;
         padding: 0;
-        overflow: hidden; /* App handles scrolling internally */
         background-color: #0f172a;
+        color: white;
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.41.0"
-  }
-}
-</script>
-</head>
+  </head>
   <body class="h-full">
     <div id="root" class="h-full"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
