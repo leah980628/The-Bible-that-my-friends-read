@@ -727,7 +727,7 @@ export default function App() {
                             <img 
                                 src="scoc_logo.png" 
                                 alt="SCOC" 
-                                className="h-7 w-auto object-contain" 
+                                className="h-5 w-auto object-contain md:h-7"
                                 onError={() => setLogoError(true)}
                             />
                         )}
