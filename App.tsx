@@ -135,6 +135,28 @@ export default function App() {
     const eqFiltersRef = useRef<BiquadFilterNode[]>([]);
     const wakeLockRef = useRef<any>(null);
 
+// --- 여기에 삽입 시작 --- 
+    const askGemini = async (userPrompt: string) => {
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: userPrompt }),
+            });
+
+            if (!response.ok) throw new Error('네트워크 응답에 문제가 있습니다.');
+
+            const data = await response.json();
+            // Gemini API의 응답 구조에 맞춰 텍스트 추출
+            const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "응답을 가져오지 못했습니다.";
+            return aiText;
+        } catch (error) {
+            console.error("Gemini 호출 중 에러 발생:", error);
+            return "에러가 발생했습니다. 다시 시도해주세요.";
+        }
+    };
+// --- 여기에 삽입 끝 ---
+
     const stateRef = useRef({ playlist, currentTrackIndex, isShuffled, repeatMode, isPlaying });
     useEffect(() => {
         stateRef.current = { playlist, currentTrackIndex, isShuffled, repeatMode, isPlaying };
