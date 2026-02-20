@@ -822,31 +822,44 @@ export default function App() {
      </div>
                         
 
-                        <div className="flex items-center justify-between bg-black/20 p-2 rounded-xl">
-                            <div className="flex space-x-1 sm:space-x-2 overflow-x-auto no-scrollbar">
-                                <button onClick={() => fileInputRef.current?.click()} className="p-2 sm:p-3 text-gray-400 hover:text-white flex-shrink-0" title="파일 불러오기"><Icon name="folder" /></button>
-                                <button onClick={() => setShowVisualizer(!showVisualizer)} className={`p-2 sm:p-3 flex-shrink-0 ${!showVisualizer ? 'text-cyan-400' : 'text-gray-400'}`} title={showVisualizer ? "앨범아트 보기" : "시각화 보기"}><Icon name="gallery" /></button>
-                                <button onClick={() => setVisualizerModeIndex(p => (p + 1) % visualizerModes.length)} className="p-2 sm:p-3 text-gray-400 hover:text-white flex-shrink-0" title="시각화 모드 변경"><Icon name="chart-bar" /></button>
-                                <button onClick={() => setIsEqVisible(true)} className="p-2 sm:p-3 text-gray-400 hover:text-white flex-shrink-0" title="이퀄라이저 열기"><Icon name="equalizer" /></button>
-                                <button onClick={() => setIsSidebarVisible(true)} className="p-2 sm:p-3 text-gray-400 hover:text-white flex-shrink-0" title="목록 열기"><Icon name="list" /></button>
-                            </div>
-                            <div className="flex items-center space-x-2 ml-2 flex-shrink-0">
-                                <div className="relative group">
-                                    <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
-                                        <Icon name="search" className="w-4 h-4 text-gray-500 group-focus-within:text-cyan-400 transition-colors" />
-                                    </div>
-                                    <input 
-                                        type="text" 
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                        placeholder="검색" 
-                                        className="bg-gray-700/50 text-white text-xs sm:text-sm rounded-full pl-8 pr-2 py-1.5 w-20 sm:w-32 focus:w-28 sm:focus:w-48 transition-all focus:outline-none focus:ring-1 focus:ring-cyan-400 placeholder-gray-500 border border-transparent focus:bg-gray-700"
-                                        title="파일명 또는 아티스트 검색"
-                                    />
-                                </div>
-                                <button onClick={() => { if(confirm("초기화하시겠습니까?")) { indexedDB.deleteDatabase(DB_NAME); location.reload(); } }} className="p-2 sm:p-3 text-gray-400 hover:text-white" title="앱 초기화 (DB삭제)"><Icon name="refresh" /></button>
-                            </div>
+                        {/* 하단 보조 도구 모음 */}
+                    <div className="flex items-center justify-between bg-black/20 p-2 rounded-xl">
+                       {/* 1. 왼쪽 아이콘 그룹 (스크롤 가능하게 설정하여 검색창 침범 방지) */}
+                      <div className="flex space-x-1 sm:space-x-2 overflow-x-auto no-scrollbar mr-2 flex-grow-0">
+                       <button onClick={() => fileInputRef.current?.click()} className="p-2 sm:p-3 text-gray-400 hover:text-white flex-shrink-0" title="파일 불러오기"><Icon name="folder" /></button>
+                       <button onClick={() => setShowVisualizer(!showVisualizer)} className={`p-2 sm:p-3 flex-shrink-0 ${!showVisualizer ? 'text-cyan-400' : 'text-gray-400'}`} title={showVisualizer ? "앨범아트 보기" : "시각화 보기"}><Icon name="gallery" /></button>
+                       <button onClick={() => setVisualizerModeIndex(p => (p + 1) % visualizerModes.length)} className="p-2 sm:p-3 text-gray-400 hover:text-white flex-shrink-0" title="시각화 모드 변경"><Icon name="chart-bar" /></button>
+                       <button onClick={() => setIsEqVisible(true)} className="p-2 sm:p-3 text-gray-400 hover:text-white flex-shrink-0" title="이퀄라이저 열기"><Icon name="equalizer" /></button>
+                       <button onClick={() => setIsSidebarVisible(true)} className="p-2 sm:p-3 text-gray-400 hover:text-white flex-shrink-0" title="목록 열기"><Icon name="list" /></button>
+          </div>
+
+                     {/* 2. 오른쪽 그룹 (검색창 + 초기화 버튼) */}
+                 <div className="flex items-center justify-end flex-shrink-0 ml-auto">
+                     <div className="relative group">
+                         <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                            <Icon name="search" className="w-4 h-4 text-gray-500 group-focus-within:text-cyan-400 transition-colors" />
                         </div>
+                        <input 
+                            type="text" 
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="검색" 
+                            className="bg-gray-700/50 text-white text-xs sm:text-sm rounded-full pl-8 pr-2 py-1.5 w-24 sm:w-32 focus:w-28 sm:focus:w-48 transition-all focus:outline-none focus:ring-1 focus:ring-cyan-400 placeholder-gray-500 border border-transparent focus:bg-gray-700"
+                            title="파일명 또는 아티스트 검색"
+                        />
+                    </div>
+        
+                   {/* 초기화 버튼: 모바일(기본)에서는 hidden, 컴퓨터(md 이상)에서만 block */}
+                   <button 
+                       onClick={() => { if(confirm("초기화하시겠습니까?")) { indexedDB.deleteDatabase(DB_NAME); location.reload(); } }} 
+                       className="hidden md:block p-2 sm:p-3 text-gray-400 hover:text-white ml-2" 
+                       title="앱 초기화 (DB삭제)"
+                   >
+                       <Icon name="refresh" />
+                   </button>
+               </div>
+          </div>
+                    
                     </section>
                 </main>
                 <audio 
