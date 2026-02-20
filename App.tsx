@@ -800,10 +800,17 @@ export default function App() {
                    <button onClick={handlePrev} className="p-1">
                    <Icon name="prev" className="w-12 h-12 md:w-10 md:h-10" />
                 </button>
-                 <button onClick={handlePlayPause} 
-                    className="w-20 h-20 md:w-16 md:h-16 flex items-center justify-center bg-cyan-400 text-black rounded-full shadow-lg transform active:scale-95 transition-transform">
-                  <Icon name={isPlaying ? 'pause' : 'play'} className="w-12 h-12 md:w-10 md:h-10" />
-               </button>
+                 <button 
+                     onClick={handlePlayPause} 
+                     className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-cyan-400 text-black rounded-full shadow-lg md:shadow-xl transform active:scale-95 md:hover:scale-110 transition-all duration-200 ease-in-out" 
+                     title={isPlaying ? "일시정지" : "재생"}
+                 >
+                     <Icon 
+                         name={isPlaying ? 'pause' : 'play'} 
+                         className="w-12 h-12 md:w-14 md:h-14" 
+                    />
+                </button>
+                      
                 <button onClick={handleNext} className="p-1">
                 <Icon name="next" className="w-12 h-12 md:w-10 md:h-10" />
                </button>
